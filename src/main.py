@@ -6,7 +6,7 @@ def main():
     # Démmarage du jeu
     pygame.init()
     icon = pygame.image.load("assets/images/icon.png")
-    pygame.display.set_caption('Epic Sans Fight')
+    pygame.display.set_caption('Epic!Sans Fight')
     pygame.display.set_icon(icon)
     game = Game()
     game.run()

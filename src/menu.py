@@ -4,61 +4,53 @@ import pygame
 class Menu:
     pygame.init()
     start = 0
-    surface = pygame.display.set_mode((800, 450))
-    #menu_background_image = pygame_menu.baseimage.BaseImage(image_path=assets.liep_background, drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY)
+    surface = pygame.display.set_mode((1000, 750))
+    menu_background=(0, 0, 0)
+    color_selection = (255, 255, 0)
     font_title = "assets/fonts/Frisky.ttf"
     font_widget = "assets/fonts/DTM-Mono.otf"
     menu_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE
+    widget_color = (255, 255, 255)
+    widget_size = 40
+    padding = (32, 64)
+    title_offset_y = 40
 
-    theme_main_menu = pygame_menu.Theme(background_color=(0, 0, 0),
-                                       selection_color=(225, 225, 225),
+    theme_main_menu = pygame_menu.Theme(background_color=menu_background,
+                                       widget_alignment=pygame_menu.locals.ALIGN_LEFT,
+                                       selection_color=color_selection,
                                        title_bar_style=menu_bar_style,
                                        title_font=font_title,
-                                       title_font_color=(255, 255, 255),
-                                       title_font_size=60,
-                                       title_offset=(100, 40),
+                                       title_font_color=(128,0,128),
+                                       title_font_size=80,
+                                       title_offset=(100, title_offset_y),
                                        widget_font=font_widget,
-                                       widget_font_color=(255, 255, 255),
-                                       widget_font_size=30,
-                                       widget_padding=(16, 32))
+                                       widget_font_color=widget_color,
+                                       widget_font_size=widget_size,
+                                       widget_padding=padding)
 
-    theme_credits = pygame_menu.Theme(background_color=(0, 0, 0),
-                                      selection_color=(225, 225, 225),
+    theme_credits = pygame_menu.Theme(background_color=menu_background,
+                                      selection_color=color_selection,
                                       title_bar_style=menu_bar_style,
                                       title_close_button=False,
                                       widget_font=font_widget,
-                                      widget_font_color=(255, 255, 255),
-                                      widget_font_size=30,
-                                      widget_padding=(16, 32),
+                                      widget_font_color=widget_color,
+                                      widget_font_size=widget_size,
+                                      widget_padding=padding,
                                       scrollbar_color=(255, 255, 255),
                                       scrollbar_slider_color=(225, 225, 225))
 
-    options_text = ["Options",
+    settings_text = ["Settings",
                     " "]
 
-    '''credits_text = ["Credits",
-                    " ",
-                    "Developpeurs",
-                    " ",
-                    "Kyllian LIM",
-                    "Valentin MUSEREAU",
-                    "Sacha EWENCZYK",
-                    "Lucas RUDANT",
-                    "Riyad GHANEM",
-                    "Kevin QIU",
-                    "Windy JERUME",
-                    " ",
-                    "Sprite designer",
-                    " ",
-                    "Annie WANG",
-                    " "]'''
+    credits_text = ["Credits",
+                    " "]
 
     sounds = pygame_menu.sound.Sound()
     sounds.set_sound(pygame_menu.sound.SOUND_TYPE_WIDGET_SELECTION, "assets/sounds/sound_effects/move selection.wav")
 
-    main_menu = pygame_menu.Menu("Epic Sans Fight", 800, 450, theme=theme_main_menu)
-    #credits_menu = pygame_menu.Menu(" ", 800, 450, theme=theme_credits)
-    options_menu = pygame_menu.Menu(" ", 800, 450, theme=theme_credits)
+    main_menu = pygame_menu.Menu("Epic!Sans Fight", 1000, 750, theme=theme_main_menu)
+    credits_menu = pygame_menu.Menu(" ", 1000, 750, theme=theme_credits)
+    settings_menu = pygame_menu.Menu(" ", 1000, 750, theme=theme_credits)
 
     custom_controller = pygame_menu.controls.Controller()
 
@@ -77,38 +69,38 @@ class Menu:
         Menu.main_menu.clear()
         Menu.main_menu.full_reset()
 
-    def options_menu_open():
-        Menu.main_menu._open(Menu.options_menu)
+    def settings_menu_open():
+        Menu.main_menu._open(Menu.settings_menu)
 
-    #def credits_menu_open():
-    #    Menu.main_menu._open(Menu.credits_menu)
+    def credits_menu_open():
+        Menu.main_menu._open(Menu.credits_menu)
 
 
-    def menu_init():
+    def menu_init(self):
 
-        Menu.main_menu.add.button('Jouer', Menu.start_the_game)
-        Menu.main_menu.add.button('Options', Menu.options_menu)
-        #Menu.main_menu.add.button('Credits', Menu.credits_menu_open)
-        Menu.main_menu.add.button('Quitter', pygame_menu.events.EXIT)
+        Menu.main_menu.add.button('Play', Menu.start_the_game)
+        Menu.main_menu.add.button('Settings', Menu.settings_menu)
+        Menu.main_menu.add.button('Credits', Menu.credits_menu_open)
+        Menu.main_menu.add.button('Exit', pygame_menu.events.EXIT)
         Menu.main_menu.set_sound(Menu.sounds, recursive=True)
 
         Menu.main_menu.set_controller(Menu.custom_controller)
 
-    #for i in credits_text:
-    #    credits_menu.add.label(i, align=pygame_menu.locals.ALIGN_CENTER, font_size=20)
-    #credits_menu.add.button('Precedent', pygame_menu.events.BACK)
-    #credits_menu.set_sound(sounds, recursive=True)
+    for i in credits_text:
+        credits_menu.add.label(i, align=pygame_menu.locals.ALIGN_CENTER, font_size=40)
+    credits_menu.add.button('Precedent', pygame_menu.events.BACK)
+    credits_menu.set_sound(sounds, recursive=True)
 
-    for j in options_text:
-        options_menu.add.label(j, align=pygame_menu.locals.ALIGN_CENTER, font_size=40)
+    for j in settings_text:
+        settings_menu.add.label(j, align=pygame_menu.locals.ALIGN_CENTER, font_size=40)
 
     def set_music_volume(slider_value: float):
         pygame.mixer.music.set_volume(slider_value / 100.0)  # Convert range 0-100 to 0.0-1.0
 
     # Add the range slider and link it to set_music_volume
-    options_menu.add.range_slider('Volume', 100, (0, 100), 1,
-                                  rangeslider_id='range_slider',
-                                  value_format=lambda x: str(int(x)),
-                                  onchange=set_music_volume)
-    options_menu.add.button('Precedent', pygame_menu.events.BACK)
-    options_menu.set_sound(sounds, recursive=True)
+    settings_menu.add.range_slider('Volume', 100, (0, 100), 1,
+                                   rangeslider_id='range_slider',
+                                   value_format=lambda x: str(int(x)),
+                                   onchange=set_music_volume)
+    settings_menu.add.button('Precedent', pygame_menu.events.BACK)
+    settings_menu.set_sound(sounds, recursive=True)
