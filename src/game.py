@@ -1,6 +1,6 @@
 import pygame
 import pygame_menu
-#from player import Player
+from epic_sans import Epic_sans
 from menu import Menu
 from fps import FPS
 
@@ -10,13 +10,13 @@ class Game:
         pygame.mixer.music.play()
 
         self.running = True
-        #self.player = Player(400, 300) # Le joueur
+        self.epic_sans = Epic_sans(750, 500) # Le joueur
         self.fps = FPS()
 
     # Fonction d'affichage
     def draw(self):
         Menu.surface.fill((0, 0, 0))
-        #self.player.draw(Menu.surface)
+        self.epic_sans.draw(Menu.surface)
         pygame.display.flip()
 
     # Boucle de jeu principale

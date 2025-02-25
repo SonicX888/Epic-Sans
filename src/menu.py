@@ -1,5 +1,6 @@
 import pygame_menu
 import pygame
+import math
 
 class Menu:
     pygame.init()
@@ -13,7 +14,6 @@ class Menu:
     widget_color = (255, 255, 255)
     widget_size = 40
     padding = (32, 64)
-    title_offset_y = 40
 
     theme_main_menu = pygame_menu.Theme(background_color=menu_background,
                                        widget_alignment=pygame_menu.locals.ALIGN_LEFT,
@@ -22,7 +22,7 @@ class Menu:
                                        title_font=font_title,
                                        title_font_color=(128,0,128),
                                        title_font_size=80,
-                                       title_offset=(100, title_offset_y),
+                                       title_offset=(100, 40),
                                        widget_font=font_widget,
                                        widget_font_color=widget_color,
                                        widget_font_size=widget_size,
@@ -51,6 +51,12 @@ class Menu:
     main_menu = pygame_menu.Menu("Epic!Sans Fight", 1000, 750, theme=theme_main_menu)
     credits_menu = pygame_menu.Menu(" ", 1000, 750, theme=theme_credits)
     settings_menu = pygame_menu.Menu(" ", 1000, 750, theme=theme_credits)
+
+    image_decorator = pygame_menu.baseimage.BaseImage(image_path="assets/images/menu_epic_sans.png",
+                                                      drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY)
+    image_decorator.scale(2, 2)
+    decorator = main_menu.get_decorator()
+    decorator.add_baseimage(25, -175, image_decorator, False)
 
     custom_controller = pygame_menu.controls.Controller()
 
