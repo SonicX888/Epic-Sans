@@ -10,4 +10,4 @@ class FPS:
 
     def render(self, display):
         self.text = self.font.render(f"FPS: {str(round(self.clock.get_fps(), 2))}", True, (255, 255, 255))
-        display.blit(self.text, (750, 10))
+        display.blit(self.text, (750, 0))
