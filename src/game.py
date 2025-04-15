@@ -9,10 +9,10 @@ class Game:
         self.menu = Menu()
 
         pygame.mixer.music.load("assets/sounds/themes/Menu_theme.mp3")
-        pygame.mixer.music.play()
+        pygame.mixer.music.play(loops=-1)
 
         self.running = True
-        self.epic_sans = Epic_sans(750, 500) # Le joueur
+        self.epic_sans = Epic_sans() # Le joueur
         self.fps = FPS()
 
     # Fonction d'affichage
@@ -35,8 +35,7 @@ class Game:
                 self.fps.render(self.menu.surface)
 
             if self.menu.start==1:
-                pygame.mixer.music.stop()
-                #self.player.update()
+                self.epic_sans.update(self.menu.surface)
                 self.draw() # Raffraichissement de l'écran
                 pygame.display.flip()
             pygame.display.update()
