@@ -80,37 +80,43 @@ class Epic_sans(pygame.sprite.Sprite):
         # Image de départ
         self.head = self.phase_1_head[0]
         self.width_head, self.height_head = self.head.get_size()
-        self.rect_head = pygame.Rect(460, 30, self.width_head, self.height_head)
+        self.x_head = 440
+        self.y_head = 30
+        self.rect_head = pygame.Rect(self.x_head, self.y_head, self.width_head, self.height_head)
 
         self.body = self.phase_1_body[0]
         self.width_body, self.height_body = self.body.get_size()
-        self.rect_body = pygame.Rect(450, 80, self.width_body, self.height_body)
+        self.x_body = 430
+        self.y_body = 80
+        self.rect_body = pygame.Rect(self.x_body, self.y_body, self.width_body, self.height_body)
 
         self.legs = self.phase_1_legs[0]
         self.width_legs, self.height_legs = self.legs.get_size()
-        self.rect_legs = pygame.Rect(450, 150, self.width_legs, self.height_legs)
+        self.x_legs = 430
+        self.y_legs = 150
+        self.rect_legs = pygame.Rect(self.x_legs, self.y_legs, self.width_legs, self.height_legs)
 
         # On commence à la première frame
         # width, height = self.image.get_size()
         # Image de départ
         # self.rect = pygame.Rect(center(width, height)[0], center(width, height)[1], width, height)
 
-    def update(self, screen):
+    def update(self):
 
         self.animation += 0.05
-        self.x_head = ((math.sin(self.animation * 1.5) * 2) + 460)
-        self.y_head = ((math.sin(self.animation * 3) * 4) + 30)
-        self.angle_head = ((math.sin(self.animation * 4) * 2) + 90)
-        self.x_body = ((math.sin(self.animation * 1.5) * 2) + 450)
-        self.y_body = ((math.sin(self.animation * 3) * 3) + 80)
-        self.rect_head.x = self.x_head
-        self.rect_head.y = self.y_head
-        self.rect_body.x = self.x_body
-        self.rect_body.y = self.y_body
+        self.new_x_head = ((math.sin(self.animation * 1.5) * 2) + self.x_head)
+        self.new_y_head = ((math.sin(self.animation * 3) * 4) + self.y_head)
+        #self.angle_head = ((math.sin(self.animation * 4) * 2) + 90)
+        self.new_x_body = ((math.sin(self.animation * 1.5) * 2) + self.x_body)
+        self.new_y_body = ((math.sin(self.animation * 3) * 3) + self.y_body)
+        self.rect_head.x = self.new_x_head
+        self.rect_head.y = self.new_y_head
+        self.rect_body.x = self.new_x_body
+        self.rect_body.y = self.new_y_body
 
     # Fonction récurrente de dessin
-    def draw(self, screen):
-        screen.blit(self.legs, self.rect_legs)
-        screen.blit(self.body, self.rect_body)
-        screen.blit(self.head, self.rect_head)
+    def draw(self, surface):
+        surface.blit(self.legs, self.rect_legs)
+        surface.blit(self.body, self.rect_body)
+        surface.blit(self.head, self.rect_head)
 
