@@ -3,6 +3,8 @@ import pygame
 class Decorations(pygame.sprite.Sprite):
     def __init__(self):
 
+        self.box = (345, 275, 300, 300)
+
         self.font = pygame.font.Font("assets/fonts/Mars_Needs_Cunnilingus.ttf", 35)
         self.stats = self.font.render("Chara LV 19 HP", True, (255, 255, 255))
         self.kr_text = self.font.render("KR", True, (255, 255, 255))
@@ -24,6 +26,8 @@ class Decorations(pygame.sprite.Sprite):
         self.rect_button = pygame.Rect(self.x_button, self.y_button, self.width_button, self.height_button)
 
     def draw(self, surface):
+
+        pygame.draw.rect(surface, (255, 255, 255), self.box, 8)
         surface.blit(self.stats, (130, 600))
         surface.blit(self.kr_text, (640, 600))
         surface.blit(self.button, self.rect_button)

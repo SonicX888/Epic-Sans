@@ -23,7 +23,6 @@ class Game:
     def draw(self):
         self.menu.surface.fill((0, 0, 0))
         self.epic_sans.draw(self.menu.surface)
-        pygame.draw.rect(self.menu.surface, (255, 255, 255), (345, 275, 300, 300), 8)
         self.player.draw(self.menu.surface)
         self.decorations.draw(self.menu.surface)
         self.fps.draw(self.menu.surface)
