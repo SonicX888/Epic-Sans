@@ -2,6 +2,7 @@ import pygame
 from player import Player
 from epic_sans import Epic_sans
 from menu import Menu
+from hp import HP
 from decorations import Decorations
 from fps import FPS
 
@@ -11,6 +12,7 @@ class Game:
         self.player = Player()
         self.epic_sans = Epic_sans()
         self.menu = Menu()
+        self.hp = HP()
         self.decorations = Decorations()
         self.fps = FPS()
 
@@ -22,6 +24,7 @@ class Game:
     # Fonction d'affichage
     def draw(self):
         self.menu.surface.fill((0, 0, 0))
+        self.hp.draw(self.menu.surface)
         self.epic_sans.draw(self.menu.surface)
         self.player.draw(self.menu.surface)
         self.decorations.draw(self.menu.surface)

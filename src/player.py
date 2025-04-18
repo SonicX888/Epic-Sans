@@ -23,52 +23,26 @@ class Player(pygame.sprite.Sprite):
         self.y_soul = 375
         self.rect_soul = pygame.Rect(self.x_soul, self.y_soul, self.width_soul, self.height_soul)
 
-    def checkCollision(h1,h2):
-        # on verifie si la h2 est dans la h1
-        if h2.pos2[0]-h1.pos2[0] <= 0 and h2.pos1[0]-h1.pos1[0] >= 0 and h2.pos1[1]-h1.pos1[1] <= 0 and h2.pos2[1]-h1.pos2[1] >= 0 or h2.pos2[0]-h1.pos1[0] >= 0 and h2.pos1[0]-h1.pos2[0] <= 0 and h2.pos1[1]-h1.pos2[1] <= 0 and h2.pos2[1]-h1.pos1[1] >= 0: 
-            return True
-        return False
-
     def update(self):
 
         keys = Keys()
 
-        '''if keys.up and self.rect_soul.colliderect(self.decorations.box):
-            self.rect_soul.y -= self.speed
-            if not self.rect_soul.colliderect(self.decorations.box):
-                self.rect_soul.y += self.speed
-        if keys.down and self.rect_soul.colliderect(self.decorations.box):
-            self.rect_soul.y += self.speed
-            if not self.rect_soul.colliderect(self.decorations.box):
-                self.rect_soul.y -= self.speed
-        if keys.left and self.rect_soul.colliderect(self.decorations.box):
-            self.rect_soul.x -= self.speed
-            if not self.rect_soul.colliderect(self.decorations.box):
-                self.rect_soul.x += self.speed
-        if keys.right and self.rect_soul.colliderect(self.decorations.box):
-            self.rect_soul.x += self.speed
-            if not self.rect_soul.colliderect(self.decorations.box):
-                self.rect_soul.x -= self.speed'''
-
-        H1 = ((self.rect_soul.x, self.rect_soul.y), (self.rect_soul.x, self.rect_soul.y - self.speed))
-        H2 = ((self.decorations.box[0], self.decorations.box[1]), (self.decorations.box[0], self.decorations.box[1]))
-
-        if keys.up and self.checkCollision(H1, H2):
-            self.rect_soul.y -= self.speed
-            if not self.rect_soul.colliderect(self.decorations.box):
-                self.rect_soul.y += self.speed
-        if keys.down and self.rect_soul.colliderect(self.decorations.box):
-            self.rect_soul.y += self.speed
-            if not self.rect_soul.colliderect(self.decorations.box):
-                self.rect_soul.y -= self.speed
-        if keys.left and self.rect_soul.colliderect(self.decorations.box):
-            self.rect_soul.x -= self.speed
-            if not self.rect_soul.colliderect(self.decorations.box):
-                self.rect_soul.x += self.speed
-        if keys.right and self.rect_soul.colliderect(self.decorations.box):
-            self.rect_soul.x += self.speed
-            if not self.rect_soul.colliderect(self.decorations.box):
-                self.rect_soul.x -= self.speed
+        if keys.up and self.rect_soul.colliderect(self.decorations.hitbox):
+            self.rect_soul.centery -= self.speed
+            if not self.rect_soul.colliderect(self.decorations.hitbox):
+                self.rect_soul.centery += self.speed
+        if keys.down and self.rect_soul.colliderect(self.decorations.hitbox):
+            self.rect_soul.centery += self.speed
+            if not self.rect_soul.colliderect(self.decorations.hitbox):
+                self.rect_soul.centery -= self.speed
+        if keys.left and self.rect_soul.colliderect(self.decorations.hitbox):
+            self.rect_soul.centerx -= self.speed
+            if not self.rect_soul.colliderect(self.decorations.hitbox):
+                self.rect_soul.centerx += self.speed
+        if keys.right and self.rect_soul.colliderect(self.decorations.hitbox):
+            self.rect_soul.centerx += self.speed
+            if not self.rect_soul.colliderect(self.decorations.hitbox):
+                self.rect_soul.centerx -= self.speed
 
     def draw(self, surface):
         surface.blit(self.soul, self.rect_soul)
