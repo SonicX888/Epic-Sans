@@ -1,15 +1,17 @@
 import pygame
 from decorations import Decorations
 from keys import Keys
+from hp import HP
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
 
         self.decorations = Decorations()
+        self.hp = HP()
 
         self.speed = 5
-
         self.size = (30, 30)
+        self.collision = False
 
         self.souls = [
             pygame.transform.scale(pygame.image.load("assets/images/soul/red.png"), self.size),
@@ -43,6 +45,11 @@ class Player(pygame.sprite.Sprite):
             self.rect_soul.centerx += self.speed
             if not self.rect_soul.colliderect(self.decorations.hitbox):
                 self.rect_soul.centerx -= self.speed
+
+        if not self.rect_soul.colliderect(self.decorations.hitbox):
+            self.collision = True
+        else:
+            self.collision = False
 
     def draw(self, surface):
         surface.blit(self.soul, self.rect_soul)

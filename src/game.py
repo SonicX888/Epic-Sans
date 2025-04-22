@@ -21,6 +21,13 @@ class Game:
 
         self.running = True
 
+    def update(self):
+        self.epic_sans.update()
+        self.player.update()
+        self.hp.collision(self.player.collision)
+        self.hp.update()
+
+
     # Fonction d'affichage
     def draw(self):
         self.menu.surface.fill((0, 0, 0))
@@ -44,9 +51,8 @@ class Game:
                 self.fps.draw(self.menu.surface)
 
             if self.menu.start==1:
-                self.epic_sans.update()
-                self.player.update()
-                self.draw() # Raffraichissement de l'écran
+                self.update()
+                self.draw()
                 pygame.display.flip()
             pygame.display.update()
             self.fps.clock.tick(60)

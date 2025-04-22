@@ -18,14 +18,14 @@ class Epic_sans(pygame.sprite.Sprite):
 
         self.phase_1_head = []
         self.phase_1_body = []
-        self.phase_1_legs = [pygame.image.load("assets/images/phase_1_legs/legs1.png")]
+        self.phase_1_legs = [pygame.image.load("assets/images/epic_sans/phase_1_legs/legs1.png")]
         self.phase_15_head = []
         self.phase_2_head = []
-        self.phase_2_body = [pygame.image.load("assets/images/phase_2_body/body1.png")]
-        self.phase_2_legs = [pygame.image.load("assets/images/phase_2_legs/legs1.png")]
+        self.phase_2_body = [pygame.image.load("assets/images/epic_sans/phase_2_body/body1.png")]
+        self.phase_2_legs = [pygame.image.load("assets/images/epic_sans/phase_2_legs/legs1.png")]
         self.phase_25_head = []
-        self.phase_25_body = [pygame.image.load("assets/images/phase_2.5_body/body1.png")]
-        self.phase_25_legs = [pygame.image.load("assets/images/phase_2.5_legs/legs1.png")]
+        self.phase_25_body = [pygame.image.load("assets/images/epic_sans/phase_2.5_body/body1.png")]
+        self.phase_25_legs = [pygame.image.load("assets/images/epic_sans/phase_2.5_legs/legs1.png")]
         self.phase_3_head = []
         self.phase_3_body = []
         self.phase_3_left_arm = []
@@ -34,47 +34,47 @@ class Epic_sans(pygame.sprite.Sprite):
         self.phase_3_animation = []
 
         for i in range(1, 4):
-            add = pygame.image.load(f"assets/images/phase_1_head/head{i}.png")
+            add = pygame.image.load(f"assets/images/epic_sans/phase_1_head/head{i}.png")
             self.phase_1_head.append(add)
 
         for i in range(1, 3):
-            add = pygame.image.load(f"assets/images/phase_1_body/body{i}.png")
+            add = pygame.image.load(f"assets/images/epic_sans/phase_1_body/body{i}.png")
             self.phase_1_body.append(add)
 
         for i in range(1, 3):
-            add = pygame.image.load(f"assets/images/phase_1.5_head/head{i}.png")
+            add = pygame.image.load(f"assets/images/epic_sans/phase_1.5_head/head{i}.png")
             self.phase_15_head.append(add)
 
         for i in range(1, 3):
-            add = pygame.image.load(f"assets/images/phase_2_head/head{i}.png")
+            add = pygame.image.load(f"assets/images/epic_sans/phase_2_head/head{i}.png")
             self.phase_2_head.append(add)
 
         for i in range(1, 4):
-            add = pygame.image.load(f"assets/images/phase_2.5_head/head{i}.png")
+            add = pygame.image.load(f"assets/images/epic_sans/phase_2.5_head/head{i}.png")
             self.phase_25_head.append(add)
 
         for i in range(1, 6):
-            add = pygame.image.load(f"assets/images/phase_3_head/head{i}.png")
+            add = pygame.image.load(f"assets/images/epic_sans/phase_3_head/head{i}.png")
             self.phase_3_head.append(add)
 
         for i in range(1, 19):
-            add = pygame.image.load(f"assets/images/phase_3_body/body{i}.png")
+            add = pygame.image.load(f"assets/images/epic_sans/phase_3_body/body{i}.png")
             self.phase_3_body.append(add)
 
         for i in range(1, 4):
-            add = pygame.image.load(f"assets/images/phase_3_left_arm/left_arm{i}.png")
+            add = pygame.image.load(f"assets/images/epic_sans/phase_3_left_arm/left_arm{i}.png")
             self.phase_3_left_arm.append(add)
 
         for i in range(1, 3):
-            add = pygame.image.load(f"assets/images/phase_3_right_arm/right_arm{i}.png")
+            add = pygame.image.load(f"assets/images/epic_sans/phase_3_right_arm/right_arm{i}.png")
             self.phase_3_right_arm.append(add)
 
         for i in range(1, 6):
-            add = pygame.image.load(f"assets/images/phase_3_legs/legs{i}.png")
+            add = pygame.image.load(f"assets/images/epic_sans/phase_3_legs/legs{i}.png")
             self.phase_3_legs.append(add)
 
         for i in range(1, 9):
-            add = pygame.image.load(f"assets/images/phase_3_animation/animation{i}.png")
+            add = pygame.image.load(f"assets/images/epic_sans/phase_3_animation/animation{i}.png")
             self.phase_3_animation.append(add)
 
         # Image de départ
