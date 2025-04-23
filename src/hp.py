@@ -16,6 +16,8 @@ class HP:
         self.hp_y = 600
         self.hp_height = 30
 
+        self.font = pygame.font.Font("assets/fonts/Mars_Needs_Cunnilingus.ttf", 35)
+
         self.kr_timer = time.time()
 
     def update(self):
@@ -45,5 +47,9 @@ class HP:
             self.add_karma()
 
     def draw(self, surface):
+
         pygame.draw.rect(surface, self.kr_color, self.rect_kr)
         pygame.draw.rect(surface, self.hp_color, self.rect_hp)
+
+        self.hp_value = self.font.render(f"{self.hp}/92", True, (255, 255, 255))
+        surface.blit(self.hp_value, (700, 600))
