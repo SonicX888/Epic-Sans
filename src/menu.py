@@ -97,7 +97,7 @@ class Menu:
         self.start = 1
         pygame.mixer.music.stop()
         pygame.mixer.music.load("assets/sounds/themes/plot_armor.mp3")
-        pygame.mixer.music.play()
+        pygame.mixer.Channel(0).play(pygame.mixer.Sound("assets/sounds/themes/plot_armor.mp3"))
         self.main_menu.clear()
         self.main_menu.full_reset()
 

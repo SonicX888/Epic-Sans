@@ -34,16 +34,6 @@ class Game:
         if self.play == 1:
             self.play_time = round(time.time(), 1)
 
-    def intro(self):
-        if round(time.time(), 1) == self.play_time + 12:
-            self.attacks.intro(190)
-        elif round(time.time(), 1) == self.play_time + 14.5:
-            self.attacks.intro(390)
-        elif round(time.time(), 1) == self.play_time + 17:
-            self.attacks.intro(615)
-        elif round(time.time(), 1) == self.play_time + 19.5:
-            self.attacks.intro(830)
-
     def update(self):
         self.epic_sans.update()
         self.player.update(self.box.hitbox)
@@ -61,7 +51,7 @@ class Game:
         self.box.draw(self.menu.surface)
         self.decorations.draw(self.menu.surface)
         self.fps.draw(self.menu.surface)
-        self.attacks.draw(self.menu.surface)
+        self.attacks.draw_intro(self.menu.surface)
 
     # Boucle de jeu principale
     def run(self):
@@ -79,7 +69,7 @@ class Game:
             if self.menu.start==1:
                 self.play += 1
                 self.function_play_time()
-                self.intro()
+                self.attacks.intro(self.play_time)
                 self.update()
                 self.draw()
                 pygame.display.flip()

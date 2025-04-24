@@ -4,6 +4,10 @@ import time
 class Decorations(pygame.sprite.Sprite):
     def __init__(self):
 
+        self.heartbreaking_sound = pygame.mixer.Sound("assets/sounds/sound_effects/Heartbreaking.wav")
+        self.current_button_index = 0  # pour suivre l'état actuel
+
+
         self.font = pygame.font.Font("assets/fonts/Mars_Needs_Cunnilingus.ttf", 35)
         self.stats = self.font.render("Chara LV 19 HP", True, (255, 255, 255))
         self.kr_text = self.font.render("KR", True, (255, 255, 255))
@@ -25,15 +29,23 @@ class Decorations(pygame.sprite.Sprite):
         self.rect_button = pygame.Rect(self.x_button, self.y_button, self.width_button, self.height_button)
 
     def update(self, play_time):
-        
-        if round(time.time(), 1) == play_time + 12:
-            self.button = self.buttons[1]
-        elif round(time.time(), 1) == play_time + 14.5:
-            self.button = self.buttons[2]
-        elif round(time.time(), 1) == play_time + 17:
-            self.button = self.buttons[3]
-        elif round(time.time(), 1) == play_time + 19.5:
-            self.button = self.buttons[4]
+        elapsed = time.time() - play_time
+        new_index = 0  # par défaut aucun bouton
+
+        if elapsed >= 19.5:
+            new_index = 4
+        elif elapsed >= 17:
+            new_index = 3
+        elif elapsed >= 14.5:
+            new_index = 2
+        elif elapsed >= 12:
+            new_index = 1
+
+        if new_index != self.current_button_index:
+            self.current_button_index = new_index
+            self.button = self.buttons[new_index]
+            self.heartbreaking_sound.play()
+
 
     def draw(self, surface):
 
