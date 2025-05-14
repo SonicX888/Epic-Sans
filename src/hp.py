@@ -12,9 +12,13 @@ class HP:
 
         self.hp_color = (255, 254, 0)
         self.kr_color = (221, 0, 255)
+        self.no_hp_color = (255, 0, 0)
         self.hp_x = 425
         self.hp_y = 600
         self.hp_height = 30
+        self.no_hp_width = 184
+
+        self.rect_no_hp = pygame.Rect(self.hp_x, self.hp_y, self.no_hp_width, self.hp_height)
 
         self.font = pygame.font.Font("assets/fonts/Mars_Needs_Cunnilingus.ttf", 35)
 
@@ -47,7 +51,8 @@ class HP:
             self.add_karma()
 
     def draw(self, surface):
-
+        
+        pygame.draw.rect(surface, self.no_hp_color, self.rect_no_hp)
         pygame.draw.rect(surface, self.kr_color, self.rect_kr)
         pygame.draw.rect(surface, self.hp_color, self.rect_hp)
 

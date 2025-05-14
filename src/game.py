@@ -1,5 +1,6 @@
 import pygame
 import time
+from keys import Keys
 from player import Player
 from epic_sans import Epic_sans
 from menu import Menu
@@ -36,10 +37,12 @@ class Game:
 
     def update(self):
         self.epic_sans.update()
-        self.player.update(self.box.hitbox)
+        beam_rects = [gb.beam_rect for gb in self.attacks.active_gaster_blasters if hasattr(gb, "beam_rect")]
+        self.player.update(self.box.hitbox, beam_rects)
         self.hp.collision(self.player.collision)
         self.hp.update()
         self.decorations.update(self.play_time)
+        self.attacks.update_gaster_blasters(self.player.rect_soul)
 
 
     # Fonction d'affichage
@@ -49,9 +52,10 @@ class Game:
         self.epic_sans.draw(self.menu.surface)
         self.player.draw(self.menu.surface)
         self.box.draw(self.menu.surface)
-        self.decorations.draw(self.menu.surface)
+        self.decorations.draw(self.menu.surface, self.attacks.finished_intro)
         self.fps.draw(self.menu.surface)
         self.attacks.draw_intro(self.menu.surface)
+        self.attacks.draw_gaster_blasters()
 
     # Boucle de jeu principale
     def run(self):

@@ -20,7 +20,7 @@ class Player(pygame.sprite.Sprite):
         self.y_soul = 400
         self.rect_soul = pygame.Rect(self.x_soul, self.y_soul, self.width_soul, self.height_soul)
 
-    def update(self, box):
+    def update(self, box, beam_rects=[]):
 
         keys = Keys()
 
@@ -50,10 +50,12 @@ class Player(pygame.sprite.Sprite):
         if keys.right:
             self.rect_soul.centerx += self.speed'''
 
-        if not self.rect_soul.colliderect(box):
-            self.collision = True
-        else:
-            self.collision = False
+        self.collision = False
+        for beam_rect in beam_rects:
+            if self.rect_soul.colliderect(beam_rect):
+                self.collision = True
+                break
+
 
     def draw(self, surface):
         surface.blit(self.soul, self.rect_soul)
