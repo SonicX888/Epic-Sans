@@ -60,9 +60,9 @@ class Decorations(pygame.sprite.Sprite):
             self.heartbreaking_sound.play()
 
 
-    def draw(self, surface, intro):
-
-        surface.blit(self.stats, (130, 600))
-        surface.blit(self.kr_text, (630, 600))
+    def draw(self, surface, intro, hp):
+        if hp > 0:
+            surface.blit(self.stats, (130, 600))
+            surface.blit(self.kr_text, (630, 600))
         if intro == False:
             surface.blit(self.button, self.rect_button)

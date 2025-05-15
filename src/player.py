@@ -55,7 +55,13 @@ class Player(pygame.sprite.Sprite):
             if self.rect_soul.colliderect(beam_rect):
                 self.collision = True
                 break
+        
+        '''if not self.rect_soul.colliderect(box):
+            self.collision = True
+        else:
+            self.collision = False'''
 
 
-    def draw(self, surface):
-        surface.blit(self.soul, self.rect_soul)
+    def draw(self, surface, hp):
+        if hp > 0:
+            surface.blit(self.soul, self.rect_soul)

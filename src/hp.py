@@ -22,6 +22,16 @@ class HP:
 
         self.font = pygame.font.Font("assets/fonts/Mars_Needs_Cunnilingus.ttf", 35)
 
+        self.sound_damage = pygame.mixer.Sound("assets/sounds/sound_effects/damage.wav")
+
+        self.gameover = False
+        self.sound_gameover = pygame.mixer.Sound("assets/sounds/themes/GameOver.wav")
+        self.gameover_image = pygame.image.load("assets/images/GameOver.png")
+        self.width_gameover, self.height_gameover = self.gameover_image.get_size()
+        self.x_gameover = (1000 - self.width_gameover) // 2
+        self.y_gameover = (750 - self.height_gameover) // 2 - 100
+        self.rect_gameover = pygame.Rect(self.x_gameover, self.y_gameover, self.width_gameover, self.height_gameover)
+
         self.kr_timer = time.time()
 
     def update(self):
@@ -41,8 +51,14 @@ class HP:
         self.rect_hp = pygame.Rect(self.hp_x, self.hp_y, self.hp_width, self.hp_height)
         self.rect_kr = pygame.Rect(self.hp_x, self.hp_y, self.kr_width, self.hp_height)
 
+        if self.hp <= 0 and self.gameover == False:
+            pygame.mixer.Channel(0).stop()
+            self.sound_gameover.play()
+            self.gameover = True
+
     def add_karma(self):
         self.kr += 1
+        self.sound_damage.play()
         if self.kr > self.hp - 1:
             self.kr = self.hp - 1
 
@@ -50,11 +66,20 @@ class HP:
         if collision == True:
             self.add_karma()
 
+        if collision == True and self.hp == 1:
+            self.hp -= 1
+
     def draw(self, surface):
         
-        pygame.draw.rect(surface, self.no_hp_color, self.rect_no_hp)
-        pygame.draw.rect(surface, self.kr_color, self.rect_kr)
-        pygame.draw.rect(surface, self.hp_color, self.rect_hp)
+        if self.hp > 0:
+            pygame.draw.rect(surface, self.no_hp_color, self.rect_no_hp)
+            pygame.draw.rect(surface, self.kr_color, self.rect_kr)
+            pygame.draw.rect(surface, self.hp_color, self.rect_hp)
 
-        self.hp_value = self.font.render(f"{self.hp}/92", True, (255, 255, 255))
-        surface.blit(self.hp_value, (700, 600))
+            self.hp_value = self.font.render(f"{self.hp}/92", True, (255, 255, 255))
+            surface.blit(self.hp_value, (700, 600))
+        else:
+            s = pygame.Surface(surface.get_size())
+            s.fill((0, 0, 0))
+            surface.blit(s, (0, 0))
+            surface.blit(self.gameover_image, self.rect_gameover)

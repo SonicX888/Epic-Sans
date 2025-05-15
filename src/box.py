@@ -6,6 +6,6 @@ class Box(pygame.sprite.Sprite):
         self.box = pygame.Rect(345, 275, 300, 300)
         self.hitbox = self.box.inflate(-70, -70)
 
-    def draw(self, surface):
-
-        pygame.draw.rect(surface, (255, 255, 255), self.box, 8)
+    def draw(self, surface, hp):
+        if hp > 0:
+            pygame.draw.rect(surface, (255, 255, 255), self.box, 8)

@@ -49,10 +49,10 @@ class Game:
     def draw(self):
         self.menu.surface.fill((0, 0, 0))
         self.hp.draw(self.menu.surface)
-        self.epic_sans.draw(self.menu.surface)
-        self.player.draw(self.menu.surface)
-        self.box.draw(self.menu.surface)
-        self.decorations.draw(self.menu.surface, self.attacks.finished_intro)
+        self.epic_sans.draw(self.menu.surface, self.hp.hp)
+        self.player.draw(self.menu.surface, self.hp.hp)
+        self.box.draw(self.menu.surface, self.hp.hp)
+        self.decorations.draw(self.menu.surface, self.attacks.finished_intro, self.hp.hp)
         self.fps.draw(self.menu.surface)
         self.attacks.draw_intro(self.menu.surface)
         self.attacks.draw_gaster_blasters()
@@ -73,7 +73,7 @@ class Game:
             if self.menu.start==1:
                 self.play += 1
                 self.function_play_time()
-                self.attacks.intro(self.play_time)
+                self.attacks.attacks_order(self.play_time, self.hp.hp)
                 self.update()
                 self.draw()
                 pygame.display.flip()

@@ -81,8 +81,9 @@ class Epic_sans(pygame.sprite.Sprite):
         self.rect_body.y = self.new_y_body
 
     # Fonction récurrente de dessin
-    def draw(self, surface):
-        surface.blit(self.legs, self.rect_legs)
-        surface.blit(self.body, self.rect_body)
-        surface.blit(self.head, self.rect_head)
+    def draw(self, surface, hp):
+        if hp > 0:
+            surface.blit(self.legs, self.rect_legs)
+            surface.blit(self.body, self.rect_body)
+            surface.blit(self.head, self.rect_head)
 

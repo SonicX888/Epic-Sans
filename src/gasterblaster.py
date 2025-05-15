@@ -210,7 +210,7 @@ class GasterBlaster:
                     if self.small:
                         self.beam_rect = beam_image.get_rect(bottomleft=(self.position.x * 0.93, self.position.y * 0.8))
                     else:
-                        self.beam_rect = beam_image.get_rect(bottomleft=(self.position.x * 0.865, self.position.y * 0.8))
+                        self.beam_rect = beam_image.get_rect(bottomleft=(self.position.x - 30, self.position.y * 0.8))
                 case 135:
                     self.beam_rect = beam_image.get_rect(bottomright=(self.position.x * 0.9, self.position.y * 0.9))
                 case -135:

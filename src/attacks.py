@@ -45,7 +45,7 @@ class Attacks(pygame.sprite.Sprite):
 
         # Compteurs de mouvement pour chaque bone
         self.bone_steps_intro = [0, 0, 0, 0]
-        self.gaster_triggered_intro = [False, False, False, False, False]
+        self.gaster_triggered_intro = [False, False, False, False, False, False, False, False]
         self.last_move_time = time.time()
         self.step_interval = 0.01  # temps entre chaque déplacement
 
@@ -102,7 +102,7 @@ class Attacks(pygame.sprite.Sprite):
             gb.draw()
 
     
-    def intro(self, play_time):
+    def attacks_order(self, play_time, hp):
         if not self.play_intro:
             return
 
@@ -133,25 +133,42 @@ class Attacks(pygame.sprite.Sprite):
                     self.last_move_time = current_time
 
         # Déclenchement des Gaster Blasters à des temps précis
-        gaster_times = [21.5, 22.0, 22.5, 23.0, 24.6]
+        gaster_times = [21.5, 22.0, 22.5, 23.0, 24.6, 25, 26, 27]
 
-        for i in range(5):
-            if elapsed >= gaster_times[i] and not self.gaster_triggered_intro[i]:
-                if i == 0:
-                    self.function_gaster_blaster(False, False, 190, 200, 190, -200, -90, 1.5)
-                    self.gaster_triggered_intro[i] = True
-                elif i == 1:
-                    self.function_gaster_blaster(False, False, 390, 200, 390, -200, -90, 1)
-                    self.gaster_triggered_intro[i] = True
-                elif i == 2:
-                    self.function_gaster_blaster(False, False, 615, 200, 615, -200, -90, 0.5)
-                    self.gaster_triggered_intro[i] = True
-                elif i == 3:
-                    self.function_gaster_blaster(False, False, 830, 200, 830, -200, -90, 0)
-                    self.gaster_triggered_intro[i] = True
-                elif i == 4:
-                    self.finished_intro = True
-                    self.gaster_triggered_intro[i] = True
+        for i in range(8):
+            if hp > 0:
+                if elapsed >= gaster_times[i] and not self.gaster_triggered_intro[i]:
+                    if i == 0:
+                        self.function_gaster_blaster(False, False, 190, 200, 190, -200, -90, 1.5)
+                        self.gaster_triggered_intro[i] = True
+                    elif i == 1:
+                        self.function_gaster_blaster(False, False, 390, 200, 390, -200, -90, 1)
+                        self.gaster_triggered_intro[i] = True
+                    elif i == 2:
+                        self.function_gaster_blaster(False, False, 615, 200, 615, -200, -90, 0.5)
+                        self.gaster_triggered_intro[i] = True
+                    elif i == 3:
+                        self.function_gaster_blaster(False, False, 830, 200, 830, -200, -90, 0)
+                        self.gaster_triggered_intro[i] = True
+                    elif i == 4:
+                        self.finished_intro = True
+                        self.gaster_triggered_intro[i] = True
+                    elif i == 5:
+                        self.function_gaster_blaster(False, False, 500, 200, 500, -200, -90, 0)
+                        self.function_gaster_blaster(False, False, 275, 425, -125, 425, 0, 0)
+                        self.gaster_triggered_intro[i] = True
+                    elif i == 6:
+                        self.function_gaster_blaster(False, False, 390, 200, 390, -300, -90, 0)
+                        self.function_gaster_blaster(False, False, 275, 525, -225, 525, 0, 0)
+                        self.function_gaster_blaster(False, False, 600, 650, 600, 1150, 90, 0)
+                        self.function_gaster_blaster(False, False, 725, 325, 1225, 325, 180, 0)
+                        self.gaster_triggered_intro[i] = True
+                    elif i == 7:
+                        '''self.function_gaster_blaster(False, False, 425, 200, -275, -300, -45, 0)
+                        self.function_gaster_blaster(False, False, 500, 200, -100, -300, -45, 0)
+                        self.function_gaster_blaster(False, False, 275, 525, -325, 525, 0, 0)'''
+                        self.gaster_triggered_intro[i] = True
+
 
     def draw_intro(self, surface):
         if self.finished_intro == False:
