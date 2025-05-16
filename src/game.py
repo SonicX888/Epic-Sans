@@ -9,6 +9,7 @@ from hp import HP
 from box import Box
 from decorations import Decorations
 from fps import FPS
+from intro import Intro
 
 class Game:
     def __init__(self):
@@ -21,6 +22,7 @@ class Game:
         self.box = Box()
         self.decorations = Decorations()
         self.fps = FPS()
+        self.intro = Intro()
 
         pygame.mixer.music.load("assets/sounds/themes/Menu_theme.mp3")
         pygame.mixer.music.play(loops=-1)
@@ -36,9 +38,14 @@ class Game:
             self.play_time = round(time.time(), 1)
 
     def update(self):
+
+        self.intro.attacks_order(self.play_time)
+        self.attacks.attacks_order(self.play_time, self.hp.hp)
         self.epic_sans.update()
         beam_rects = [gb.beam_rect for gb in self.attacks.active_gaster_blasters if hasattr(gb, "beam_rect")]
-        self.player.update(self.box.hitbox, beam_rects)
+        beam_alpha = [gb.beam_alpha for gb in self.attacks.active_gaster_blasters if hasattr(gb, "beam_alpha")]
+        bonewall_rects = self.attacks.get_bonewall_rects()
+        self.player.update(self.box.hitbox, self.hp.hp, beam_rects, beam_alpha, bonewall_rects)
         self.hp.collision(self.player.collision)
         self.hp.update()
         self.decorations.update(self.play_time)
@@ -48,13 +55,22 @@ class Game:
     # Fonction d'affichage
     def draw(self):
         self.menu.surface.fill((0, 0, 0))
+        self.attacks.draw(self.menu.surface)
+        s1 = pygame.Surface((375, 1000))
+        s1.fill((0, 0, 0))
+        self.menu.surface.blit(s1, (-30, -225))
+        self.menu.surface.blit(s1, (645, -225))
+        s2 = pygame.Surface((300, 375))
+        s2.fill((0, 0, 0))
+        self.menu.surface.blit(s2, (345, -100))
+        self.menu.surface.blit(s2, (345, 575))
         self.hp.draw(self.menu.surface)
         self.epic_sans.draw(self.menu.surface, self.hp.hp)
         self.player.draw(self.menu.surface, self.hp.hp)
         self.box.draw(self.menu.surface, self.hp.hp)
-        self.decorations.draw(self.menu.surface, self.attacks.finished_intro, self.hp.hp)
+        self.decorations.draw(self.menu.surface, self.intro.finished_intro, self.hp.hp)
+        self.intro.draw(self.menu.surface)
         self.fps.draw(self.menu.surface)
-        self.attacks.draw_intro(self.menu.surface)
         self.attacks.draw_gaster_blasters()
 
     # Boucle de jeu principale
@@ -73,7 +89,6 @@ class Game:
             if self.menu.start==1:
                 self.play += 1
                 self.function_play_time()
-                self.attacks.attacks_order(self.play_time, self.hp.hp)
                 self.update()
                 self.draw()
                 pygame.display.flip()

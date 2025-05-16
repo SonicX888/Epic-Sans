@@ -31,7 +31,10 @@ class HP:
         self.x_gameover = (1000 - self.width_gameover) // 2
         self.y_gameover = (750 - self.height_gameover) // 2 - 100
         self.rect_gameover = pygame.Rect(self.x_gameover, self.y_gameover, self.width_gameover, self.height_gameover)
+        self.gameover_alpha = 0  # alpha initial (complètement transparent)
+        self.fade_speed = 3      # vitesse d’apparition (peut être ajustée)
 
+        self.death_time = None  # moment où les HP atteignent 0
         self.kr_timer = time.time()
 
     def update(self):
@@ -51,10 +54,18 @@ class HP:
         self.rect_hp = pygame.Rect(self.hp_x, self.hp_y, self.hp_width, self.hp_height)
         self.rect_kr = pygame.Rect(self.hp_x, self.hp_y, self.kr_width, self.hp_height)
 
-        if self.hp <= 0 and self.gameover == False:
-            pygame.mixer.Channel(0).stop()
-            self.sound_gameover.play()
-            self.gameover = True
+        if self.hp <= 0 and self.death_time is None:
+            self.death_time = time.time()  # enregistre le moment de la mort
+
+        # Attends 3 secondes après la mort pour afficher le gameover
+        if self.death_time is not None:
+            if time.time() - self.death_time >= 3 and not self.gameover:
+                self.sound_gameover.play()
+                self.gameover = True
+
+            if self.gameover and self.gameover_alpha < 255:
+                self.gameover_alpha += self.fade_speed
+                self.gameover_alpha = min(255, self.gameover_alpha)
 
     def add_karma(self):
         self.kr += 1
@@ -79,7 +90,7 @@ class HP:
             self.hp_value = self.font.render(f"{self.hp}/92", True, (255, 255, 255))
             surface.blit(self.hp_value, (700, 600))
         else:
-            s = pygame.Surface(surface.get_size())
-            s.fill((0, 0, 0))
-            surface.blit(s, (0, 0))
-            surface.blit(self.gameover_image, self.rect_gameover)
+            # Surface intermédiaire avec alpha
+            gameover_surf = self.gameover_image.convert_alpha()
+            gameover_surf.set_alpha(self.gameover_alpha)
+            surface.blit(gameover_surf, self.rect_gameover)
