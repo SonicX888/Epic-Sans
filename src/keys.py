@@ -1,16 +1,21 @@
+# --- Class: Keys ---
+# Purpose: Captures and stores the current keyboard input state for game controls
 import pygame
 
 class Keys:
-  
-  def __init__(self):
-    # Touches du clavier
+    def __init__(self):
+      # Poll all current key states
+      self.keys = pygame.key.get_pressed()
 
-    self.keys = pygame.key.get_pressed()
-    self.z = self.keys[pygame.K_z]
-    self.x = self.keys[pygame.K_x]
-    self.esc = self.keys[pygame.K_ESCAPE]
+      # Action keys
+      self.z = self.keys[pygame.K_z]      # Confirm / attack / interact
+      self.x = self.keys[pygame.K_x]      # Cancel / back
+      self.esc = self.keys[pygame.K_ESCAPE]  # Pause / exit
+      self.e = self.keys[pygame.K_e] # Enable debug mode
+      self.d = self.keys[pygame.K_d] # Disable debug mode
 
-    self.up = self.keys[pygame.K_UP]
-    self.down = self.keys[pygame.K_DOWN]
-    self.left = self.keys[pygame.K_LEFT]
-    self.right = self.keys[pygame.K_RIGHT]
+      # Movement keys
+      self.up = self.keys[pygame.K_UP]
+      self.down = self.keys[pygame.K_DOWN]
+      self.left = self.keys[pygame.K_LEFT]
+      self.right = self.keys[pygame.K_RIGHT]

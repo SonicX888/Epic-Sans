@@ -1,23 +1,26 @@
+# --- Class: Intro ---
+# Purpose: Manages the animated intro sequence using bones that rise at specific times
 import pygame
 import time
 
 class Intro(pygame.sprite.Sprite):
     def __init__(self):
-
         super().__init__()
 
+        # Load bone image for intro
         self.bones = [
             pygame.image.load("assets/images/attacks/bones/medium_bone.png")
         ]
 
-        self.play_intro = True
-        self.finished_intro = False
+        self.play_intro = True  # Flag to enable intro
+        self.finished_intro = False  # Flag for when the intro is done
 
-        # Compteurs de mouvement pour chaque bone
+        # Track how many steps each bone has moved
         self.bone_steps_intro = [0, 0, 0, 0]
         self.last_move_time = time.time()
-        self.step_interval = 0.01  # temps entre chaque déplacement
+        self.step_interval = 0.01  # Delay between each step of movement
 
+        # Initial bone position setup
         self.bone = self.bones[0]
         self.width_bone, self.height_bone = self.bone.get_size()
         self.x1_bone = 190
@@ -34,19 +37,20 @@ class Intro(pygame.sprite.Sprite):
         self.rect_bone4 = pygame.Rect(self.x4_bone, self.y4_bone, self.width_bone, self.height_bone)
 
     def attacks_order(self, play_time):
+        # Handles the rising animation of bones based on elapsed time
         if not self.play_intro:
             return
 
         current_time = time.time()
         elapsed = current_time - play_time
 
-        # Durées après lesquelles chaque bone commence à bouger
+        # Times when each bone begins to rise
         bone_start_times = [12.0, 14.5, 17.0, 19.5]
 
         for i in range(4):
             if elapsed >= bone_start_times[i] and self.bone_steps_intro[i] < 5:
-                # Vérifie que le délai est écoulé depuis le dernier mouvement
                 if current_time - self.last_move_time >= self.step_interval:
+                    # Move each bone upward by 20 pixels per step
                     if i == 0:
                         self.y1_bone -= 20
                         self.rect_bone1 = pygame.Rect(self.x1_bone, self.y1_bone, self.width_bone, self.height_bone)
@@ -62,12 +66,14 @@ class Intro(pygame.sprite.Sprite):
 
                     self.bone_steps_intro[i] += 1
                     self.last_move_time = current_time
-        
+
+        # Mark intro finished after final animation
         if elapsed >= 24.6:
             self.finished_intro = True
 
     def draw(self, surface):
-        if self.finished_intro == False:
+        # Draws bones on screen during intro animation
+        if not self.finished_intro:
             surface.blit(self.bone, self.rect_bone1)
             surface.blit(self.bone, self.rect_bone2)
             surface.blit(self.bone, self.rect_bone3)
