@@ -318,9 +318,9 @@ class Player(pygame.sprite.Sprite):
                         self.rect_soul.centerx += self.speed
                         if not self.rect_soul.colliderect(box):
                             self.rect_soul.centerx -= self.speed
-
+                            
+            self.collision = False
             if self.debug == False:
-                self.collision = False
                 for beam_rect in beam_rects:
                     if beam_rect[0] > -200 and beam_rect[1] > -200:
                         if self.rect_soul.colliderect(beam_rect):
@@ -360,7 +360,7 @@ class Player(pygame.sprite.Sprite):
 
         # Game over handling
         if hp <= 0 and not self.gameover:
-            pygame.mixer.Channel(0).stop()
+            pygame.mixer.stop()
             self.broken_sound.play()
             self.gameover = True
 

@@ -71,6 +71,7 @@ class Epic_sans(pygame.sprite.Sprite):
         self.sound3 = False
         self.sound4 = False
         self.sound5 = False
+        self.sound6 = False
 
         self.final_animation_active = False
         self.final_animation_start_time = None
@@ -158,6 +159,10 @@ class Epic_sans(pygame.sprite.Sprite):
             if current_time >= 92 and not self.sound5:
                 pygame.mixer.Channel(7).play(self.slash)
                 self.sound5 = True
+
+            if current_time >= 93 and not self.sound6:
+                pygame.mixer.Channel(8).play(self.hit)
+                self.sound6 = True
 
             self.animation += 0.05
             if not self.phase_115_active and current_time < 93:

@@ -28,7 +28,7 @@ class Bones:
 
         self._set_direction(start_x, start_y, end_x, end_y)  # Calculate direction vector
 
-        self.visible = False  # Par défaut, invisible tant que non actif
+        self.visible = False  # Initially invisible until activated
 
     def _set_direction(self, from_x, from_y, to_x, to_y):
         # Calculate and normalize the direction vector for movement

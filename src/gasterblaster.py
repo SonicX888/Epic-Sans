@@ -62,10 +62,8 @@ class GasterBlaster:
         self.black_screen_played = False
         self.black_screen_removed_sound_played = False
 
-        self.animation_delay_started = False
-        self.animation_start_time = None
-
-        self.debug = False
+        self.animation_delay_started = False  # Indicates if the delay before the animation has started
+        self.animation_start_time = None  # Timestamp of when the animation delay started
 
     def get_beam_image(self, scale):
         # Retrieve or create a scaled and rotated beam image
