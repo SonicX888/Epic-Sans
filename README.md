@@ -98,6 +98,7 @@ This project allowed me to:
    ```
 
 The game will start with an interactive menu that lets you begin the fight.
+When running the game, make sure your PC is charging. This will allow you to have more fps and therefore a better experience of the game.
 
 ---
 
