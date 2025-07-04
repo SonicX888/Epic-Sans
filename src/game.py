@@ -2,6 +2,7 @@
 # Purpose: Manages the entire game loop, initialization, updates, and rendering of all components
 import pygame
 import time
+import sys
 from keys import Keys
 from player import Player
 from epic_sans import Epic_sans
@@ -14,9 +15,11 @@ from fps import FPS
 from intro import Intro
 from ball import Ball
 from end import End
+from assets import Assets
 
 class Game:
     def __init__(self):
+
         # Instantiate all game components
         self.player = Player()
         self.epic_sans = Epic_sans()
@@ -27,9 +30,10 @@ class Game:
         self.decorations = Decorations()
         self.fps = FPS()
         self.intro = Intro()
+        self.assets = Assets()
 
         # Load and play main menu music
-        pygame.mixer.music.load("assets/sounds/themes/Menu_theme.mp3")
+        pygame.mixer.music.load(self.assets.Menu_theme)
         pygame.mixer.music.play(loops=-1)
 
         # Game state flags and timer
@@ -146,7 +150,7 @@ class Game:
             events = pygame.event.get()
             for event in events:
                 if event.type == pygame.QUIT:
-                    exit()
+                    sys.exit()
 
             if self.menu.main_menu.is_enabled():
                 self.menu.main_menu.update(events)

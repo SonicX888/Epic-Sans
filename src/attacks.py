@@ -7,56 +7,59 @@ from gasterblaster import GasterBlaster
 from bones import Bones
 from timestopmanager import TimeStopManager
 from kamehameha import Kamehameha
+from assets import Assets
 
 class Attacks(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
+        self.assets = Assets()
+
         # Load bone and platform images
-        self.platforms = [pygame.image.load("assets/images/attacks/others/platform.png")]
+        self.platforms = [pygame.image.load(self.assets.platform)]
         self.attacks = [
-            pygame.image.load("assets/images/attacks/bones/long_bone.png"), #0
-            pygame.image.load("assets/images/attacks/bones/cross_bone.png"), #1
-            pygame.image.load("assets/images/attacks/bones/little_bone.png"), #2
-            pygame.image.load("assets/images/attacks/bones/long_medium_bone_jump.png"), #3
-            pygame.image.load("assets/images/attacks/bones/medium_bone_jump.png"), #4
-            pygame.image.load("assets/images/attacks/bones/medium_bone.png"), #5
-            pygame.transform.scale(pygame.transform.rotate(pygame.image.load("assets/images/attacks/bones/MEGA_bone.png"), 90), (1000, 1000)), #6
-            pygame.image.load("assets/images/attacks/bones/semi-circle_bone.png"), #7
-            pygame.image.load("assets/images/attacks/bones/warning.png"), #8
-            pygame.image.load("assets/images/attacks/bones/bonewall.png"), #9
-            pygame.image.load("assets/images/attacks/bones/bottom_bone.png"), #10
-            pygame.image.load("assets/images/attacks/bones/top_bone.png"), #11
-            pygame.image.load("assets/images/attacks/bones/medium_blue_bone.png"), #12
-            pygame.image.load("assets/images/attacks/bones/medium_orange_bone.png"), #13
-            pygame.image.load("assets/images/attacks/others/fist.png"), #14
-            pygame.image.load("assets/images/attacks/others/road_roller.png"), #15
-            pygame.image.load("assets/images/attacks/others/pillar.png") #16
+            pygame.image.load(self.assets.long_bone), #0
+            pygame.image.load(self.assets.cross_bone), #1
+            pygame.image.load(self.assets.little_bone), #2
+            pygame.image.load(self.assets.long_medium_bone_jump), #3
+            pygame.image.load(self.assets.medium_bone_jump), #4
+            pygame.image.load(self.assets.medium_bone), #5
+            pygame.transform.scale(pygame.transform.rotate(pygame.image.load(self.assets.MEGA_bone), 90), (1000, 1000)), #6
+            pygame.image.load(self.assets.semi_circle_bone), #7
+            pygame.image.load(self.assets.warning), #8
+            pygame.image.load(self.assets.bonewall), #9
+            pygame.image.load(self.assets.bottom_bone), #10
+            pygame.image.load(self.assets.top_bone), #11
+            pygame.image.load(self.assets.medium_blue_bone), #12
+            pygame.image.load(self.assets.medium_orange_bone), #13
+            pygame.image.load(self.assets.fist), #14
+            pygame.image.load(self.assets.road_roller_image), #15
+            pygame.image.load(self.assets.pillar) #16
         ]
 
-        self.ora = pygame.mixer.Sound("assets/sounds/sound_effects/ORA.wav")
-        self.za_warudo = pygame.mixer.Sound("assets/sounds/sound_effects/za_warudo.wav")
-        self.resume = pygame.mixer.Sound("assets/sounds/sound_effects/resume.wav")
-        self.za_warudo_words = pygame.mixer.Sound("assets/sounds/sound_effects/za_warudo_words.wav")
-        pygame.mixer.set_num_channels(10)  # si ce n’est pas déjà fait
+        self.ora = pygame.mixer.Sound(self.assets.ORA)
+        self.za_warudo = pygame.mixer.Sound(self.assets.za_warudo)
+        self.resume = pygame.mixer.Sound(self.assets.resume)
+        self.za_warudo_words = pygame.mixer.Sound(self.assets.za_warudo_words)
+        pygame.mixer.set_num_channels(10)
         self.za_warudo_channel = pygame.mixer.Channel(5)
 
 
         # Load Gaster Blaster images
         self.gaster_blasters = [
-            pygame.image.load("assets/images/attacks/gaster_blaster/gaster_blaster1.png"),
-            pygame.image.load("assets/images/attacks/gaster_blaster/gaster_blaster2.png"),
-            pygame.image.load("assets/images/attacks/gaster_blaster/gaster_blaster3.png"),
-            pygame.image.load("assets/images/attacks/gaster_blaster/gaster_blaster4.png"),
-            pygame.image.load("assets/images/attacks/gaster_blaster/gaster_blaster5.png"),
-            pygame.image.load("assets/images/attacks/gaster_blaster/gaster_blaster6.png"),
-            pygame.image.load("assets/images/attacks/gaster_blaster/small_gaster_blaster1.png"),
-            pygame.image.load("assets/images/attacks/gaster_blaster/small_gaster_blaster2.png"),
-            pygame.image.load("assets/images/attacks/gaster_blaster/small_gaster_blaster3.png"),
-            pygame.image.load("assets/images/attacks/gaster_blaster/small_gaster_blaster4.png"),
-            pygame.image.load("assets/images/attacks/gaster_blaster/small_gaster_blaster5.png"),
-            pygame.image.load("assets/images/attacks/gaster_blaster/small_gaster_blaster6.png"),
-            pygame.image.load("assets/images/attacks/gaster_blaster/beam1.png")
+            pygame.image.load(self.assets.gaster_blaster1),
+            pygame.image.load(self.assets.gaster_blaster2),
+            pygame.image.load(self.assets.gaster_blaster3),
+            pygame.image.load(self.assets.gaster_blaster4),
+            pygame.image.load(self.assets.gaster_blaster5),
+            pygame.image.load(self.assets.gaster_blaster6),
+            pygame.image.load(self.assets.small_gaster_blaster1),
+            pygame.image.load(self.assets.small_gaster_blaster2),
+            pygame.image.load(self.assets.small_gaster_blaster3),
+            pygame.image.load(self.assets.small_gaster_blaster4),
+            pygame.image.load(self.assets.small_gaster_blaster5),
+            pygame.image.load(self.assets.small_gaster_blaster6),
+            pygame.image.load(self.assets.beam1)
         ]
 
         # Active attack instances
@@ -72,7 +75,7 @@ class Attacks(pygame.sprite.Sprite):
         self.collision =  ()
 
         # Warning system
-        self.warning_sound = pygame.mixer.Sound("assets/sounds/sound_effects/notice.wav")
+        self.warning_sound = pygame.mixer.Sound(self.assets.notice)
         self.warnings_active = False
         self.warnings_displayed = False
 

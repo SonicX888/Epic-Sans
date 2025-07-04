@@ -3,9 +3,13 @@
 import pygame
 import time
 import random
+from assets import Assets
 
 class TimeStopManager:
     def __init__(self, attacks):
+
+        self.assets = Assets()
+
         self.attacks = attacks  # Attack assets (sprites)
         self.start_time = time.time()  # Start of time stop effect
 
@@ -18,7 +22,7 @@ class TimeStopManager:
         # Road roller effect parameters
         self.road_roller_pos = [200, -400]
         self.road_roller_done = False
-        self.road_roller_sound = pygame.mixer.Sound("assets/sounds/sound_effects/road_roller.wav")
+        self.road_roller_sound = pygame.mixer.Sound(self.assets.road_roller_sound)
 
         # Visual overlay
         self.surface_alpha = 180  # Starting alpha for dimming screen

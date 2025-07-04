@@ -2,19 +2,23 @@
 # Purpose: Creates and manages all menu interfaces (main, settings) and sound/graphic settings
 import pygame_menu
 import pygame
+from assets import Assets
 
 class Menu:
     pygame.init()
 
     def __init__(self):
+
+        self.assets = Assets()
+
         self.start = 0
         self.surface = pygame.display.set_mode((1000, 750))
         self.menu_background = (0, 0, 0)
         self.color_selection = (255, 255, 0)
 
         # Fonts and styling for menus
-        self.font_title = "assets/fonts/Frisky.ttf"
-        self.font_widget = "assets/fonts/DTM-Mono.otf"
+        self.font_title = self.assets.Frisky
+        self.font_widget = self.assets.DTM_Mono
         self.menu_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE
         self.widget_color = (255, 255, 255)
         self.widget_size = 40
@@ -55,7 +59,7 @@ class Menu:
 
         # Sound on menu selection
         self.sounds = pygame_menu.sound.Sound()
-        self.sounds.set_sound(pygame_menu.sound.SOUND_TYPE_WIDGET_SELECTION, "assets/sounds/sound_effects/move selection.wav")
+        self.sounds.set_sound(pygame_menu.sound.SOUND_TYPE_WIDGET_SELECTION, self.assets.move_selection)
 
         # Create menus
         self.main_menu = pygame_menu.Menu("Epic!Sans Fight", 1000, 750, theme=self.theme_main_menu)
@@ -77,7 +81,7 @@ class Menu:
 
         # Add image background to main menu
         self.image_decorator = pygame_menu.baseimage.BaseImage(
-            image_path="assets/images/menu_epic_sans.png",
+            image_path=self.assets.menu_epic_sans,
             drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY)
         self.image_decorator.scale(2, 2)
         self.decorator = self.main_menu.get_decorator()
@@ -91,8 +95,8 @@ class Menu:
         # Called when Play is pressed
         self.start = 1
         pygame.mixer.music.stop()
-        pygame.mixer.music.load("assets/sounds/themes/plot_armor.mp3")
-        pygame.mixer.Channel(0).play(pygame.mixer.Sound("assets/sounds/themes/plot_armor.mp3"))
+        pygame.mixer.music.load(self.assets.plot_armor)
+        pygame.mixer.Channel(0).play(pygame.mixer.Sound(self.assets.plot_armor))
         self.main_menu.clear()
         self.main_menu.full_reset()
 

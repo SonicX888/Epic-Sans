@@ -1,11 +1,15 @@
 # --- Class: Ball ---
 # Purpose: Projectile attack entity that moves and despawns off-screen
 import pygame
+from assets import Assets
 
 class Ball(pygame.sprite.Sprite):
     def __init__(self, x, y, direction, speed):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.transform.scale(pygame.image.load("assets/images/attacks/others/ball.png"), (50, 50))  # Load and scale ball image
+
+        self.assets = Assets()
+
+        self.image = pygame.transform.scale(pygame.image.load(self.assets.ball), (50, 50))  # Load and scale ball image
         self.rect = self.image.get_rect(center=(x, y))  # Positioning rectangle
         self.pos = (x, y)  # Position stored as float (for sub-pixel accuracy)
         self.direction = direction  # Movement direction in degrees

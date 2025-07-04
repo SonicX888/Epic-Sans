@@ -2,14 +2,17 @@
 # Purpose: Manages the animated intro sequence using bones that rise at specific times
 import pygame
 import time
+from assets import Assets
 
 class Intro(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
+        self.assets = Assets()
+
         # Load bone image for intro
         self.bones = [
-            pygame.image.load("assets/images/attacks/bones/medium_bone.png")
+            pygame.image.load(self.assets.medium_bone)
         ]
 
         self.play_intro = True  # Flag to enable intro

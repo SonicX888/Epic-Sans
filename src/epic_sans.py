@@ -5,10 +5,13 @@ import math
 import time
 import random
 from accessory import Accessory
+from assets import Assets
 
 class Epic_sans(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
+
+        self.assets = Assets()
 
         # Animation tracking
         self.animation = 0
@@ -28,44 +31,47 @@ class Epic_sans(pygame.sprite.Sprite):
         self.accessory_timer = 0
         self.Accessory = Accessory  # Reference to Accessory class
 
-        # Helper to load multiple frame images
-        def load_images(pattern, count):
-            return [pygame.image.load(pattern.format(i)) for i in range(1, count + 1)]
-
         # Load assets for all Epic!Sans phases
-        self.phase_1_head = load_images("assets/images/epic_sans/phase_1_head/head{}.png", 3)
-        self.phase_1_body = load_images("assets/images/epic_sans/phase_1_body/body{}.png", 2)
-        self.phase_1_legs = [pygame.image.load("assets/images/epic_sans/phase_1_legs/legs1.png")]
+        self.phase_1_head = [pygame.image.load(self.assets.head1_p1),
+                             pygame.image.load(self.assets.head2_p1),
+                             pygame.image.load(self.assets.head3_p1)]
+        self.phase_1_body = [pygame.image.load(self.assets.body1_p1),
+                             pygame.image.load(self.assets.body2_p1)]
+        self.phase_1_legs = [pygame.image.load(self.assets.legs1_p1)]
 
-        self.phase_15_head = load_images("assets/images/epic_sans/phase_1.5_head/head{}.png", 2)
+        self.phase_15_head = [pygame.image.load(self.assets.head1_p15),
+                              pygame.image.load(self.assets.head2_p15)]
 
-        self.phase_2_head = load_images("assets/images/epic_sans/phase_2_head/head{}.png", 2)
-        self.phase_2_body = [pygame.image.load("assets/images/epic_sans/phase_2_body/body1.png")]
-        self.phase_2_legs = [pygame.image.load("assets/images/epic_sans/phase_2_legs/legs1.png")]
+        self.phase_2_head = [pygame.image.load(self.assets.head1_p2),
+                             pygame.image.load(self.assets.head2_p2)]
+        self.phase_2_body = [pygame.image.load(self.assets.body1_p2)]
+        self.phase_2_legs = [pygame.image.load(self.assets.legs1_p2)]
 
-        self.phase_25_head = load_images("assets/images/epic_sans/phase_2.5_head/head{}.png", 3)
-        self.phase_25_body = [pygame.image.load("assets/images/epic_sans/phase_2.5_body/body1.png")]
-        self.phase_25_legs = [pygame.image.load("assets/images/epic_sans/phase_2.5_legs/legs1.png")]
+        self.phase_25_head = [pygame.image.load(self.assets.head1_p25),
+                              pygame.image.load(self.assets.head2_p25),
+                              pygame.image.load(self.assets.head3_p25)]
+        self.phase_25_body = [pygame.image.load(self.assets.body1_p25)]
+        self.phase_25_legs = [pygame.image.load(self.assets.legs1_p25)]
 
-        self.phase_3_head = load_images("assets/images/epic_sans/phase_3_head/head{}.png", 5)
-        self.phase_3_body = load_images("assets/images/epic_sans/phase_3_body/body{}.png", 18)
-        self.phase_3_left_arm = load_images("assets/images/epic_sans/phase_3_left_arm/left_arm{}.png", 3)
-        self.phase_3_right_arm = load_images("assets/images/epic_sans/phase_3_right_arm/right_arm{}.png", 2)
-        self.phase_3_legs = load_images("assets/images/epic_sans/phase_3_legs/legs{}.png", 5)
-        self.phase_3_animation = load_images("assets/images/epic_sans/phase_3_animation/animation{}.png", 8)
+        self.phase_3_head = [pygame.image.load(path) for path in self.assets.head_p3]
+        self.phase_3_body = [pygame.image.load(path) for path in self.assets.body_p3]
+        self.phase_3_left_arm = [pygame.image.load(path) for path in self.assets.left_arm_p3]
+        self.phase_3_right_arm = [pygame.image.load(path) for path in self.assets.right_arm_p3]
+        self.phase_3_legs = [pygame.image.load(path) for path in self.assets.legs_p3]
+        self.phase_3_animation = [pygame.image.load(path) for path in self.assets.animation_p3]
 
-        # Load accessory sprite
-        self.accessories = load_images("assets/images/epic_sans/accessories/accessory{}.png", 2)
+        self.accessories = [pygame.image.load(self.assets.accessory1),
+                            pygame.image.load(self.assets.accessory2)]
 
-        self.slices = load_images("assets/images/Slices/Slice{}.png", 6)
+        self.slices = [pygame.image.load(path) for path in self.assets.slices]
 
         # Initialize head/body/legs rects
         self._init_sprites()
 
-        self.kamehameha = pygame.mixer.Sound("assets/sounds/sound_effects/kamehameha.wav")
-        self.slash = pygame.mixer.Sound("assets/sounds/sound_effects/slash.wav")
-        self.hit = pygame.mixer.Sound("assets/sounds/sound_effects/hit.wav")
-        self.dust = pygame.mixer.Sound("assets/sounds/sound_effects/dust.wav")
+        self.kamehameha = pygame.mixer.Sound(self.assets.kamehameha)
+        self.slash = pygame.mixer.Sound(self.assets.slash)
+        self.hit = pygame.mixer.Sound(self.assets.hit)
+        self.dust = pygame.mixer.Sound(self.assets.dust)
         self.sound = False
         self.sound2 = False
         self.sound3 = False

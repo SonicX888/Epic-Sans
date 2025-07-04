@@ -3,9 +3,13 @@
 import pygame
 import math
 import time
+from assets import Assets
 
 class GasterBlaster:
     def __init__(self, small, fake, x, y, start_x, start_y, angle, shoot_delay, assets, surface):
+
+        self.assets = Assets()
+
         self.surface = surface  # Display surface to draw onto
         self.small = small  # Flag indicating if it's a small Gaster Blaster
 
@@ -25,9 +29,9 @@ class GasterBlaster:
         self.target_angle = angle
 
         # Load and play charge sound
-        self.sound_charged = pygame.mixer.Sound("assets/sounds/sound_effects/charged.wav")
-        self.sound_shoot = pygame.mixer.Sound("assets/sounds/sound_effects/shoot.wav")
-        self.black_screen = pygame.mixer.Sound("assets/sounds/sound_effects/black.wav")
+        self.sound_charged = pygame.mixer.Sound(self.assets.charged)
+        self.sound_shoot = pygame.mixer.Sound(self.assets.shoot)
+        self.black_screen = pygame.mixer.Sound(self.assets.black)
         pygame.mixer.Channel(1).play(self.sound_charged)
 
         # Flags to manage state

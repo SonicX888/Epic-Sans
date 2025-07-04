@@ -2,18 +2,22 @@
 # Purpose: Manages UI elements like the name label, KR label, and button animation during the intro
 import pygame
 import time
+from assets import Assets
 
 class Decorations(pygame.sprite.Sprite):
     def __init__(self):
+
+        self.assets = Assets()
+
         # Load button break sound effect
-        self.heartbreaking_sound = pygame.mixer.Sound("assets/sounds/sound_effects/Heartbreaking.wav")
+        self.heartbreaking_sound = pygame.mixer.Sound(self.assets.Heartbreaking)
 
         # Track which button image is currently shown
         self.current_button_index = 0
 
         # Setup fonts for labels
-        self.font = pygame.font.Font("assets/fonts/Mars_Needs_Cunnilingus.ttf", 35)
-        self.stats = self._render_text("Chara LV 19 HP")
+        self.font = pygame.font.Font(self.assets.Mars_Needs_Cunnilingus, 35)
+        self.stats = self._render_text("Frisk LV 19 HP")
         self.kr_text = self._render_text("KR")
 
         # Load button images for animation
@@ -33,14 +37,14 @@ class Decorations(pygame.sprite.Sprite):
     def _load_buttons(self):
         # Load all button animation frames
         button_paths = [
-            "assets/images/buttons/buttons.png",
-            "assets/images/buttons/buttons_broken1.png",
-            "assets/images/buttons/buttons_broken2.png",
-            "assets/images/buttons/buttons_broken3.png",
-            "assets/images/buttons/buttons_broken4.png",
-            "assets/images/buttons/buttons_gone1.png",
-            "assets/images/buttons/buttons_gone2.png",
-            "assets/images/buttons/buttons_gone3.png"
+            self.assets.buttons,
+            self.assets.buttons_broken1,
+            self.assets.buttons_broken2,
+            self.assets.buttons_broken3,
+            self.assets.buttons_broken4,
+            self.assets.buttons_gone1,
+            self.assets.buttons_gone2,
+            self.assets.buttons_gone3
         ]
         return [pygame.image.load(path) for path in button_paths]
 

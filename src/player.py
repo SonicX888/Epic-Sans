@@ -3,9 +3,13 @@
 import pygame
 import time
 from keys import Keys
+from assets import Assets
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
+
+        self.assets = Assets()
+        
         # Movement and visual properties
         self.speed = 5
         self.size = (30, 30)
@@ -13,13 +17,13 @@ class Player(pygame.sprite.Sprite):
 
         # Load soul images (red, blue, purple, broken)
         self.souls = [
-            pygame.transform.scale(pygame.image.load("assets/images/soul/red.png"), self.size),
-            pygame.transform.scale(pygame.image.load("assets/images/soul/blue.png"), self.size),
-            pygame.transform.scale(pygame.image.load("assets/images/soul/purple.png"), self.size),
-            pygame.transform.scale(pygame.image.load("assets/images/soul/broken_soul.png"), self.size)
+            pygame.transform.scale(pygame.image.load(self.assets.red), self.size),
+            pygame.transform.scale(pygame.image.load(self.assets.blue), self.size),
+            pygame.transform.scale(pygame.image.load(self.assets.purple), self.size),
+            pygame.transform.scale(pygame.image.load(self.assets.broken_soul), self.size)
         ]
-        self.broken_sound = pygame.mixer.Sound("assets/sounds/sound_effects/broken.wav")
-        self.soul_sound = pygame.mixer.Sound("assets/sounds/sound_effects/ping.wav")
+        self.broken_sound = pygame.mixer.Sound(self.assets.broken)
+        self.soul_sound = pygame.mixer.Sound(self.assets.ping)
 
         self.soul = self.souls[0]  # Default is red soul
         self.broken = self.souls[3]

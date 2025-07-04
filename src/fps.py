@@ -1,11 +1,15 @@
 # --- Class: FPS ---
 # Purpose: Tracks and displays the current frames per second for performance monitoring
 import pygame
+from assets import Assets
 
 class FPS:
     def __init__(self):
+
+        self.assets = Assets()
+
         self.clock = pygame.time.Clock()  # Pygame clock to track time
-        self.font = pygame.font.Font("assets/fonts/DTM-Mono.otf", 40)  # Font used for displaying FPS
+        self.font = pygame.font.Font(self.assets.DTM_Mono, 40)  # Font used for displaying FPS
 
     def draw(self, surface):
         # Render and draw the current FPS on the screen

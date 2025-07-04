@@ -2,10 +2,13 @@
 # Purpose: Manages the player's HP, Karma reduction over time, game over state, and UI rendering
 import time
 import pygame
+from assets import Assets
 
 class HP:
     def __init__(self):
         pygame.init()
+
+        self.assets = Assets()
 
         # Health and Karma values
         self.hp = 92
@@ -24,15 +27,15 @@ class HP:
         self.rect_no_hp = pygame.Rect(self.hp_x, self.hp_y, self.no_hp_width, self.hp_height)
 
         # Font for HP text
-        self.font = pygame.font.Font("assets/fonts/Mars_Needs_Cunnilingus.ttf", 35)
+        self.font = pygame.font.Font(self.assets.Mars_Needs_Cunnilingus, 35)
 
         # Sound effects
-        self.sound_damage = pygame.mixer.Sound("assets/sounds/sound_effects/damage.wav")
-        self.sound_gameover = pygame.mixer.Sound("assets/sounds/themes/GameOver.wav")
+        self.sound_damage = pygame.mixer.Sound(self.assets.damage)
+        self.sound_gameover = pygame.mixer.Sound(self.assets.GameOver_sound)
 
         # Game over image setup
         self.gameover = False
-        self.gameover_image = pygame.image.load("assets/images/GameOver.png")
+        self.gameover_image = pygame.image.load(self.assets.GameOver_image)
         self.width_gameover, self.height_gameover = self.gameover_image.get_size()
         self.x_gameover = (1000 - self.width_gameover) // 2
         self.y_gameover = (750 - self.height_gameover) // 2 - 100
